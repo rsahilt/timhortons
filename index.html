@@ -42,6 +42,8 @@
         height: 240px;
         /* background-color: #666; */
         box-shadow: inset 0px 0px 12px rgba(0,0,0,0.2);
+        font-size: 0.8em;
+        padding-top: 5px;
       }
 
       button#place_order,
@@ -80,6 +82,115 @@
     </style>
     
     <script>
+    //Global Variables
+    let mobile_display;
+    let place_order_button;
+    let cancel_order_button;
+    
+    //creating array to store order name
+    let orders_array = new Array();
+
+    //array to store size
+    let orders_size = new Array();
+
+    //array to store quantity
+    let orders_quantity = new Array();
+
+    //array to store deleted data
+    let canceled_order = new Array();
+
+    
+
+    // when the window loads, these functions run
+    onload = function(){
+      //setting variables to get the IDs
+      mobile_display = document.getElementById("display_screen");
+      place_order_button = document.getElementById("place_order");
+      cancel_order_button = document.getElementById("cancel_order");
+
+      //calling a function when the place order button is clicked
+      place_order_button.onclick = function(){
+        write_orders();
+      };
+
+      cancel_order_button.onclick = function(){
+        remove_orders();
+      }
+    }
+
+    //function to take order from the user
+    function write_orders(){
+      //asking the user for the drink and pushing to the array
+      let store_order = prompt("What do you feel like drinking today?", "");
+      orders_array.push(store_order);
+
+      //asking the user for the size and pushing to the array
+      let size = prompt("What sized " + store_order + " would you like? Small, Medium or Large", "");
+      size.toLowerCase();
+      orders_size.push(size);
+
+      //asking the user for the quantity and pushing to the array
+      let quantity = prompt("How many " + size + " " + store_order + " would you like?","");
+      orders_quantity.push(quantity);
+
+      //check for bad data
+      if(store_order === null || store_order === "" ||
+         size === null || size === "" ||
+         quantity === null || quantity === ""){
+        alert("Please fill all the information");    
+        return;
+      }
+
+      if(!isNaN(store_order) || !isNaN(size)){
+        alert("Wrong Information! Please check again.");
+        return;
+      }
+
+      if(isNaN(quantity)){
+        alert("INVALID NUMBER OF DRINK. CHECK YOUR ORDER");
+        return;
+      }
+
+      if(size != "small" || size != "medium" || size != "large"){
+        alert("INAVLID SIZE!!!");
+        return;
+      }
+      //alerting the user of their order
+      else{
+        alert("You order is: "+ quantity + " " + size + " " + store_order +".");
+      }
+      
+
+
+      //calling the function to display the orders to the screen
+      view_orders();
+    }
+
+    //function for deleting the array
+    function remove_orders(){
+      let delete_order = prompt("Which order number do you want to take off?", "");
+      delete_order = parseInt(delete_order);
+      delete_order-- ;
+
+      canceled_order.push(delete_order);
+
+      orders_array.splice(delete_order, 1);
+      orders_size.splice(delete_order, 1);
+      orders_quantity.splice(delete_order, 1);
+
+      view_orders();
+      
+    }
+
+    //creating a function to display the user's order
+    function view_orders(){
+      mobile_display.innerHTML = '';
+      //creating a for loop to keep updating the list 
+      for(i = 0; i < orders_array.length; i++){
+        mobile_display.innerHTML += i+1 + ") " + orders_array[i] + " - " + 
+                                    orders_size[i] + " - " + orders_quantity[i] + "<br>";
+      }
+    }
    
     </script>
   </head>
