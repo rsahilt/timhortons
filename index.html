@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+    <title>Tim Hortons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed&display=swap" rel="stylesheet">
+
+    <style>
+      body{
+        font-family: Tahoma, sans-serif;
+        margin: 0 auto;
+      }
+
+      #iphone{
+        margin: 0 auto;
+        background: url("images/phone_bg.jpeg");
+        background-repeat: no-repeat;
+        height: 600px;
+        width: 370px;
+        /* background-color: red; */
+      }
+
+      #tim_hortons_logo{
+        margin: 0 auto;
+        width: 100px;
+        height: 97px;
+      }
+
+      #tim_hortons_logo img{
+        position: relative;
+        top: 50px;
+        max-width: 100%;
+      }
+
+      #display_screen{
+        margin: 60px auto 0 auto;
+        width: 210px;
+        height: 240px;
+        /* background-color: #666; */
+        box-shadow: inset 0px 0px 12px rgba(0,0,0,0.2);
+      }
+
+      button#place_order,
+      button#cancel_order{
+        background-color: #dd0f2d;
+        color: #ffffff;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+        font-weight: bolder;
+        font-family: 'Sofia Sans Extra Condensed', sans-serif;
+        font-size: 1em;
+        letter-spacing: 1px;
+        display: inline-block;
+        width: 90px;
+        
+      }
+
+      button#place_order{
+        margin: 20px 0 0 143px;
+        /* background-color: #009900; */
+      }
+
+      button#cancel_order{
+        margin: 10px 0 0 143px;
+      }
+      
+
+      button#place_order:hover,
+      button#cancel_order:hover{
+        box-shadow: inset 2px 2px 6px rgba(0,0,0,0.5);
+        
+      }
+
+    </style>
+    
+    <script>
+   
+    </script>
+  </head>
+  
+ 
+  
+  <body>
+    <div id="iphone">
+
+      <!-- div for containing tim hortons logo image -->
+      <div id="tim_hortons_logo">
+        <img src="images/tim_hortons.png" alt="tim hortons logo">
+     </div>
+
+     <!-- div where all the JS will run -->
+     <div id="display_screen"></div>
+
+     <!-- Start Order will change to Place Order once it is clicked -->
+     <button id="place_order">Start Order</button>
+     <button id="cancel_order">Cancel Order</button>
+
+    </div>
+  </body>
+</html>
