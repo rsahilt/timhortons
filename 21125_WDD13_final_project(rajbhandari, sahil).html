@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+    <title>Tim Hortons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+
+    <style>
+      body{
+        font-family: Tahoma, sans-serif;
+        margin: 0 auto;
+      }
+
+      #iphone{
+        margin: 0 auto;
+        background: url("images/phone_bg.jpeg");
+        background-repeat: no-repeat;
+        height: 600px;
+        width: 370px;
+      }
+
+      #tim_hortons_logo{
+        margin: 0 auto;
+        width: 100px;
+        height: 97px;
+      }
+
+      #tim_hortons_logo img{
+        position: relative;
+        top: 50px;
+        max-width: 100%;
+      }
+
+      #display_screen{
+        margin: 60px auto 0 auto;
+        width: 210px;
+        height: 240px;
+        box-shadow: inset 0px 0px 12px rgba(0,0,0,0.2);
+        font-size: 0.8em;
+        padding-top: 5px;
+        overflow-y: scroll;
+        font-family: 'Heebo', sans-serif;
+        padding-left: 5px;
+      }
+
+      button#place_order,
+      button#cancel_order{
+        background-color: #dd0f2d;
+        color: #ffffff;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+        font-weight: bolder;
+        font-family: 'Sofia Sans Extra Condensed', sans-serif;
+        font-size: 1em;
+        letter-spacing: 1px;
+        display: inline-block;
+        width: 90px;
+        
+      }
+
+      button#place_order{
+        margin: 20px 0 0 143px;
+        /* background-color: #009900; */
+      }
+
+      button#cancel_order{
+        margin: 10px 0 0 143px;
+      }
+      
+
+      button#place_order:hover,
+      button#cancel_order:hover{
+        box-shadow: inset 2px 2px 6px rgba(0,0,0,0.5);
+        
+      }
+
+    </style>
+    
+    <script>
+    //Global Variables
+    let mobile_display;
+    let place_order_button;
+    let cancel_order_button;
+    
+    //creating array to store order name
+    let orders_array = new Array();
+
+    //array to store size
+    let orders_size = new Array();
+
+    //array to store quantity
+    let orders_quantity = new Array();
+
+    //array to store deleted data
+    let canceled_order = new Array();
+
+    
+
+    // when the window loads, these functions run
+    onload = function(){
+      //setting variables to get the IDs
+      mobile_display = document.getElementById("display_screen");
+      place_order_button = document.getElementById("place_order");
+      cancel_order_button = document.getElementById("cancel_order");
+
+      //calling a function when the place order button is clicked
+      place_order_button.onclick = function(){
+        write_orders();
+      };
+
+      cancel_order_button.onclick = function(){
+        remove_orders();
+      }
+    }
+
+    //function to take order from the user
+    function write_orders(){
+      //asking the user for the drink and pushing to the array
+      let store_order = prompt("What do you feel like drinking today?", "");
+      orders_array.push(store_order);
+
+      //asking the user for the size and pushing to the array
+      let size = prompt("What sized " + store_order + " would you like? Small, Medium or Large", "");
+      //changing the user input to lower case
+      size = size.toLowerCase();
+      orders_size.push(size);
+
+      //asking the user for the quantity and pushing to the array
+      let quantity = prompt("How many " + size + " " + store_order + " would you like?","");
+      orders_quantity.push(quantity);
+
+      //check for bad data
+      //the the value is null or empty, alert the user and return
+      if(store_order === null || store_order === ""){
+        alert("You did not order for anything");    
+        return;
+      }
+
+      //the the value is null or empty, alert the user and return
+      if(size === null || size === ""){
+        alert("You did not enter the size of your drink");
+        return;
+      }
+
+      //the the value is null or empty, alert the user and return
+      if(quantity === null || quantity === ""){
+        alert("You did not enter how many drinks you want");
+        return;
+      }
+
+      //checking if the input value is number or not and alerting the user and exit the function
+      if(!isNaN(store_order) || !isNaN(size)){
+        alert("Wrong Information! Please check again.");
+        return;
+      }
+
+      //checking if the input value is number or not and alerting the user and exit the function
+      if(isNaN(quantity)){
+        alert("INVALID NUMBER OF DRINK. CHECK YOUR ORDER");
+        return;
+      }
+      
+      //checking if the user input value is small or medium or large only
+      if(size !== "small" && size !== "medium" && size !== "large"){
+        alert("Drink size not available! Please select: small, medium or large.");
+        return;
+      }
+
+      //alerting the user of their order
+      else{
+        alert("You order is: "+ quantity + " " + size + " " + store_order +".");
+      }
+      
+      //calling the function to display the orders to the screen
+      view_orders();
+    }
+
+    //function for deleting the array
+    function remove_orders(){
+
+      //check if there are any orders to cancel or not
+      if(orders_array.length < 1){
+        alert("No orders to cancel");
+        return;
+      }
+
+      //ask the user which order number they want to cancel
+      let delete_order = prompt("Which order number do you want to cancel?", "");
+      delete_order = parseInt(delete_order);
+      delete_order-- ;
+
+      //checking if the input value is an Integer.
+      if(isNaN(delete_order)){
+        alert("This is not a valid Order No. Please check your Order No.");
+        return;
+      }
+
+      //pushing the delete_order number to canceled_order array
+      canceled_order.push(delete_order);
+
+      
+      //spilcing the objects from the array as per the user's input
+      orders_array.splice(delete_order, 1);
+      orders_size.splice(delete_order, 1);
+      orders_quantity.splice(delete_order, 1);
+
+      //calling the function to view the updated list of orders
+      view_orders();
+    }
+
+
+
+    
+
+    //creating a function to display the user's order
+    function view_orders(){
+      mobile_display.innerHTML = '<h1 style="font-size: 1.2em;">Your Order(s)</h1>';
+      //creating a for loop to keep updating the list 
+      for(i = 0; i < orders_array.length; i++){
+        
+        mobile_display.innerHTML += i+1 + ") " + orders_array[i] + " - " + 
+                                    orders_size[i] + " - " + orders_quantity[i] + "<br>";
+      }
+    }
+
+    </script>
+  </head>
+  
+
+  <body>
+    <!-- creating a div for adding a mobile image -->
+    <div id="iphone">
+
+      <!-- div for containing tim hortons logo image -->
+      <div id="tim_hortons_logo">
+        <img src="images/tim_hortons.png" alt="tim hortons logo">
+     </div>
+
+     <!-- div where all the JS will run -->
+     <div id="display_screen"></div>
+
+     <!-- Start Order will change to Place Order once it is clicked -->
+     <button id="place_order">Start Order</button>
+     <button id="cancel_order">Cancel Order</button>
+
+    </div>
+  </body>
+</html>
